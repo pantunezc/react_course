@@ -7,3 +7,5 @@ Browser->>Server:GET https://studies.cs.helsinki.fi/exampleapp/spa.js
 Server-->>Browser: JS file
 Browser->>Server: GEThttps://studies.cs.helsinki.fi/exampleapp/data.json
 Server-->>Browser: data in json form 
+Browser->>Server: POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+Server-->>Browser: 201 Created
