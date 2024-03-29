@@ -2,13 +2,19 @@ import { useState } from "react";
 
 const Statistics = ({ total, score, positivePercentage }) => {
   if (total === 0) {
-    return <div>No data to display</div>;
+    return (
+      <>
+        <h1>statistics</h1>
+        <div>No feedback given</div>
+      </>
+    );
   }
 
   const average = score / total;
 
   return (
     <div>
+      <h1>statistics</h1>
       <p>all: {total}</p>
       <p>average: {average.toFixed(2)}</p>
       <p>positive: {positivePercentage.toFixed(2)}%</p>
