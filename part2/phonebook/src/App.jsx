@@ -2,9 +2,15 @@ import { useState } from "react";
 import Person from "./components/Person";
 
 const App = () => {
-  const [persons, setPersons] = useState([{ id: 1, name: "Arto Hellas", phone: "123456789" }]);
+  const [persons, setPersons] = useState([
+    { name: "Arto Hellas", phone: "040-123456", id: 1 },
+    { name: "Ada Lovelace", phone: "39-44-5323523", id: 2 },
+    { name: "Dan Abramov", phone: "12-43-234345", id: 3 },
+    { name: "Mary Poppendieck", phone: "39-23-6423122", id: 4 },
+  ]);
   const [newName, setNewName] = useState("a new contact...");
   const [newPhone, setNewPhone] = useState("123456789");
+  const [filter, setFilter] = useState("");
 
   const addName = (event) => {
     event.preventDefault();
@@ -32,9 +38,18 @@ const App = () => {
     }
   };
 
+  const handleChangeFilter = (event) => {
+    const { value } = event.target;
+    setFilter(value);
+  };
+
   return (
     <div>
       <h2>Phonebook</h2>
+      <p>
+        filtre shown with <input value={filter} onChange={handleChangeFilter} />
+      </p>
+      <h2>add a new</h2>
       <form onSubmit={addName}>
         <div>
           <p>
@@ -50,9 +65,11 @@ const App = () => {
       </form>
       <h2>Numbers</h2>
       <ul>
-        {persons.map((person) => (
-          <Person key={person.id} person={person} />
-        ))}
+        {persons
+          .filter((person) => person.name.toLowerCase().includes(filter.toLowerCase()))
+          .map((person) => (
+            <Person key={person.id} person={person} />
+          ))}
       </ul>
     </div>
   );
