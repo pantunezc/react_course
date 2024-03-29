@@ -1,6 +1,15 @@
 import { useState } from "react";
 
-const Statistics = ({ total, score, positivePercentage }) => {
+const StatisticLine = ({ text, value }) => {
+  console.log("🚀 ~ StatisticLine ~ text:", text);
+  return (
+    <p>
+      {text}: {value}
+    </p>
+  );
+};
+
+const Statistics = ({ good, bad, neutral, total, score, positivePercentage }) => {
   if (total === 0) {
     return (
       <>
@@ -15,9 +24,12 @@ const Statistics = ({ total, score, positivePercentage }) => {
   return (
     <div>
       <h1>statistics</h1>
-      <p>all: {total}</p>
-      <p>average: {average.toFixed(2)}</p>
-      <p>positive: {positivePercentage.toFixed(2)}%</p>
+      <StatisticLine text="good" value={good} />
+      <StatisticLine text="neutral" value={neutral} />
+      <StatisticLine text="bad" value={bad} />
+      <StatisticLine text="all" value={total} />
+      <StatisticLine text="average" value={average.toFixed(2)} />
+      <StatisticLine text="positive" value={positivePercentage.toFixed(2) + " %"} />
     </div>
   );
 };
@@ -56,10 +68,7 @@ const App = () => {
       <Button handleClick={handleGoodClick} text="good" />
       <Button handleClick={handleNeutralClick} text="neutral" />
       <Button handleClick={handleBadClick} text="bad" />
-      <p>good: {good}</p>
-      <p>neutral: {neutral}</p>
-      <p>bad: {bad}</p>
-      <Statistics total={total} score={score} positivePercentage={positivePercentage} />
+      <Statistics good={good} neutral={neutral} bad={bad} total={total} score={score} positivePercentage={positivePercentage} />
     </div>
   );
 };
