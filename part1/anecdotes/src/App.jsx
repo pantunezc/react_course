@@ -14,7 +14,7 @@ const App = () => {
 
   const handleVoteClick = (index) => {
     const copy = [...points];
-    copy[index]++;
+    copy[index] += 1;
     setPoints(copy);
   };
 
