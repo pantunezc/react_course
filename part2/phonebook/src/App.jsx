@@ -2,13 +2,15 @@ import { useState } from "react";
 import Person from "./components/Person";
 
 const App = () => {
-  const [persons, setPersons] = useState([{ name: "Arto Hellas", id: 1 }]);
-  const [newName, setNewName] = useState("a new number...");
+  const [persons, setPersons] = useState([{ id: 1, name: "Arto Hellas", phone: "123456789" }]);
+  const [newName, setNewName] = useState("a new contact...");
+  const [newPhone, setNewPhone] = useState("123456789");
 
   const addName = (event) => {
     event.preventDefault();
     const newPerson = {
       name: newName,
+      phone: newPhone,
       id: persons.length + 1,
     };
 
@@ -22,7 +24,12 @@ const App = () => {
   };
 
   const handleChange = (event) => {
-    setNewName(event.target.value);
+    const { name, value } = event.target;
+    if (name === "newName") {
+      setNewName(value);
+    } else if (name === "newPhone") {
+      setNewPhone(value);
+    }
   };
 
   return (
@@ -30,7 +37,12 @@ const App = () => {
       <h2>Phonebook</h2>
       <form onSubmit={addName}>
         <div>
-          name: <input value={newName} onChange={handleChange} />
+          <p>
+            name: <input value={newName} onChange={handleChange} name="newName" />
+          </p>
+          <p>
+            number: <input value={newPhone} onChange={handleChange} name="newPhone" />
+          </p>
         </div>
         <div>
           <button type="submit">add</button>
