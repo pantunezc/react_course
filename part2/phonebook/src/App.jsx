@@ -1,5 +1,7 @@
 import { useState } from "react";
 import Person from "./components/Person";
+import Filter from "./components/Filter";
+import PersonForm from "./components/PersonForm";
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -24,6 +26,7 @@ const App = () => {
     if (!found) {
       setPersons([...persons, newPerson]);
       setNewName("");
+      setNewPhone("");
     } else {
       alert(`${newPerson.name} is already added to phonebook`);
     }
@@ -46,23 +49,9 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <p>
-        filtre shown with <input value={filter} onChange={handleChangeFilter} />
-      </p>
+      <Filter filter={filter} handleChange={handleChangeFilter} />
       <h2>add a new</h2>
-      <form onSubmit={addName}>
-        <div>
-          <p>
-            name: <input value={newName} onChange={handleChange} name="newName" />
-          </p>
-          <p>
-            number: <input value={newPhone} onChange={handleChange} name="newPhone" />
-          </p>
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <PersonForm addName={addName} newName={newName} newPhone={newPhone} handleChange={handleChange} />
       <h2>Numbers</h2>
       <ul>
         {persons
