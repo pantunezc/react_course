@@ -1,14 +1,6 @@
 import { useState } from "react";
 
-const History = (props) => {
-  if (props.total === 0) {
-    return <div>the app is used by pressing the buttons</div>;
-  }
-
-  return <div>all: {props.total}</div>;
-};
-
-const Stats = ({ total, score, positivePercentage }) => {
+const Statistics = ({ total, score, positivePercentage }) => {
   if (total === 0) {
     return <div>No data to display</div>;
   }
@@ -61,7 +53,7 @@ const App = () => {
       <p>good: {good}</p>
       <p>neutral: {neutral}</p>
       <p>bad: {bad}</p>
-      <Stats total={total} score={score} positivePercentage={positivePercentage} />
+      <Statistics total={total} score={score} positivePercentage={positivePercentage} />
     </div>
   );
 };
