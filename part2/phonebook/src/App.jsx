@@ -56,6 +56,7 @@ const App = () => {
           .catch((error) => {
             setMessage(`Information of '${updatedPerson.name}' has already been removed from the server`);
             setMessageType("error");
+            setPersons(persons.filter((p) => p.id !== updatedPerson.id));
             setTimeout(() => {
               setMessage(null);
             }, 5000);
@@ -93,6 +94,7 @@ const App = () => {
         .catch((error) => {
           setMessage(`Information of '${person.name}' has already been removed from the server`);
           setMessageType("error");
+          setPersons(persons.filter((p) => p.id !== person.id));
           setTimeout(() => {
             setMessage(null);
           }, 5000);
