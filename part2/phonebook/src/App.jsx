@@ -20,15 +20,21 @@ const App = () => {
     event.preventDefault();
     const newPerson = {
       name: newName,
-      phone: newPhone,
-      id: persons.length + 1,
+      phone: newPhone
     };
 
     const found = persons.find((person) => person.name === newPerson.name);
     if (!found) {
-      setPersons([...persons, newPerson]);
+      axios
+        .post('http://localhost:3001/persons', newPerson)
+        .then(response => {
+          setPersons(persons.concat(response.data))
+          setNewName("");
+          setNewPhone("");
+        })
+      /* setPersons([...persons, newPerson]);
       setNewName("");
-      setNewPhone("");
+      setNewPhone(""); */
     } else {
       alert(`${newPerson.name} is already added to phonebook`);
     }
