@@ -31,7 +31,20 @@ const App = () => {
         setNewPhone("");
       });
     } else {
-      alert(`${newPerson.name} is already added to phonebook`);
+      if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
+        const updatedPerson = { ...found, number: newPhone };
+        personService
+          .update(updatedPerson.id, updatedPerson)
+          .then((returnedUpdatedPerson) => {
+            setPersons(persons.map((person) => (person.id !== found.id ? person : returnedUpdatedPerson)));
+            setNewName("");
+            setNewPhone("");
+          })
+          .catch((error) => {
+            console.error("Error updating person:", error);
+            // Maneja el error aquí, podrías mostrar un mensaje de error al usuario
+          });
+      }
     }
   };
 
