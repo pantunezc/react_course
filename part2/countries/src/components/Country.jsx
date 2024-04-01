@@ -1,5 +1,6 @@
 // Country.js
 import React, { useState } from "react";
+import Weather from "./Weather"; // Importar el componente Weather
 
 const Country = ({ countryInfo }) => {
   const [selectedCountryIndex, setSelectedCountryIndex] = useState(null);
@@ -33,6 +34,7 @@ const Country = ({ countryInfo }) => {
             })}
           </ul>
           <img src={countryInfo[0].flags.png} alt={countryInfo[0].flags.alt} />
+          <Weather city={countryInfo[0].capital} /> {/* Mostrar el componente Weather */}
         </div>
       ) : null}
 
