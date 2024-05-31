@@ -28,16 +28,25 @@ const App = () => {
 
     const found = persons.find((person) => person.name === newPerson.name);
     if (!found) {
-      personService.create(newPerson).then((returnedPerson) => {
-        setPersons(persons.concat(returnedPerson));
-        setNewName("");
-        setNewPhone("");
-        setMessage(`Added '${newPerson.name}' `);
-        setMessageType("success");
-        setTimeout(() => {
-          setMessage(null);
-        }, 5000);
-      });
+      personService
+        .create(newPerson)
+        .then((returnedPerson) => {
+          setPersons(persons.concat(returnedPerson));
+          setNewName("");
+          setNewPhone("");
+          setMessage(`Added '${newPerson.name}' `);
+          setMessageType("success");
+          setTimeout(() => {
+            setMessage(null);
+          }, 5000);
+        })
+        .catch((error) => {
+          setMessage(error.response.data.error);
+          setMessageType("error");
+          setTimeout(() => {
+            setMessage(null);
+          }, 5000);
+        });
     } else {
       if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
         const updatedPerson = { ...found, number: newPhone };
@@ -54,9 +63,8 @@ const App = () => {
             }, 5000);
           })
           .catch((error) => {
-            setMessage(`Information of '${updatedPerson.name}' has already been removed from the server`);
+            setMessage(error.response.data.error);
             setMessageType("error");
-            setPersons(persons.filter((p) => p.id !== updatedPerson.id));
             setTimeout(() => {
               setMessage(null);
             }, 5000);
